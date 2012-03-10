@@ -107,9 +107,6 @@ From: Evernote
 
 
 
-☆ここまで実装(↑)
-
-
    * 時間をスコアに。
       * 開始時刻を取っておいて、NSTimeIntervalで経過秒数を
          * ->ソース or Evernote参照
