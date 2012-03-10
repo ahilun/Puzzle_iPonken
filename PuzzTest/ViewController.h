@@ -47,4 +47,6 @@
                         x:(CGFloat)x
                         y:(CGFloat)y;
 -(void)checkAnswer;
+-(void)reGenerateProblem;
+-(float)getRandInt:(float)min max:(float)max;
 @end

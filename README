@@ -92,13 +92,21 @@ From: Evernote
          * angle:<0.05 t:<2
 
 
-!!Commit: 「Add: checkAnswer()」
+!!Commit: 「Add: checkAnswer」
 
 
    * 再生成
-      * とりあえずボタン押したら再生成
-      * ：：FIXME:正解したら
+      * 正解したらアラートを出して、問題をランダムに再生成。
+      * 指定した範囲の乱数を返すメソッド(コピペ
 
-   * 時間制限(or 時間をスコアに！！)
+!!Commit: 「Add: reGenerateProblem」
+
+
+
+☆ここまで実装(↑)
+
+
+   * 時間をスコアに。
       * どうする？
+      * ハイスコアの記録とか？
 !!Commit: 「」!!

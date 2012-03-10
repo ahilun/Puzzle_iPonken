@@ -34,6 +34,8 @@
     
     
     //ここから関数化？
+    [self reGenerateProblem];
+    /*
     //PlayerとTargetを(未:ランダムに)配置。
     _playerImage.transform = CGAffineTransformMakeRotation(0.0);
     _playerHolder.transform = CGAffineTransformMakeTranslation(150.0, 250.0);
@@ -45,6 +47,7 @@
     lastPlayerHolderTransform = _playerHolder.transform;
     lastTargetTransform = _targetImage.transform;
     lastTargetHolderTransform = _targetHolder.transform;
+    */
     
     
     //ジェスチャーの登録
@@ -185,13 +188,52 @@
     NSLog(@"checkAnswer");
     //angle:<0.05 t:<2
     if (diffAngle <= thresholdAngle && diffX <= thresholdTranslation && diffY <= thresholdTranslation){
-        _answerLabel.text = @"○";
+        //_answerLabel.text = @"○";
+        [[[UIAlertView alloc] initWithTitle:@"Result" message:@"正解です！\nScore:未実装" delegate:self cancelButtonTitle:@"もう一度挑戦" otherButtonTitles:nil, nil] show];
+        [self reGenerateProblem];
+        
     } else {
-        _answerLabel.text = @"×";
+        //_answerLabel.text = @"×";
     }
     
     [self displayRotation:diffAngle angle:angle];
     [self displayTranslation:diffX diffY:diffY x:x y:y];
+}
+
+-(void)reGenerateProblem{
+    //30 <= x <= 140
+    //30 <= y <= 280
+    //-3 <= a <= 3
+    
+    float x = [self getRandInt:30.0 max:140.0];
+    float y = [self getRandInt:30.0 max:280.0];
+    float a = [self getRandInt:-3000000.0 max:3000000.0] / 1000000.0;
+    NSLog(@"PlayerReGenerate: x=%f, y=%f, a=%f", x, y, a);
+    _playerImage.transform = CGAffineTransformMakeRotation(a);
+    _playerHolder.transform = CGAffineTransformMakeTranslation(x, y);
+    
+    x = [self getRandInt:30.0 max:140.0];
+    y = [self getRandInt:30.0 max:280.0];
+    a = [self getRandInt:-3000000.0 max:3000000.0] / 1000000.0;
+    _targetImage.transform = CGAffineTransformMakeRotation(a);
+    _targetHolder.transform = CGAffineTransformMakeTranslation(x, y);
+    NSLog(@"TargetReGenerate: x=%f, y=%f, a=%f", x, y, a);
+    
+    //変更後の初期位置,回転を保持。
+    lastPlayerTransform = _playerImage.transform;
+    lastPlayerHolderTransform = _playerHolder.transform;
+    lastTargetTransform = _targetImage.transform;
+    lastTargetHolderTransform = _targetHolder.transform;
+}
+
+-(float)getRandInt:(float)min max:(float)max {
+    //From: http://d.hatena.ne.jp/craneto/20100721/1279677592
+	static int randInitFlag;
+	if (randInitFlag == 0) {
+		srand(time(NULL));
+		randInitFlag = 1;
+	}
+	return min + (float)(rand()*(max-min+1.0)/(1.0+RAND_MAX));
 }
 
 @end
