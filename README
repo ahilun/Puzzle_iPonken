@@ -7,7 +7,8 @@ From: Evernote
 座標と回転とサイズを素早く合わせるパズルを作ってみる練習。
 
 
-
+◯スライド
+発表用スライド: 未作成
 
 
 
@@ -57,14 +58,14 @@ From: Evernote
       * Memo: Evernote
          * 「Renders with edge antialisasing」
 
-!!イマココ(2012/03/10 2時くらい)!!
+!!Commit: First !!
 
 
 
    * ターゲットの作成
       * PlayerとTarget。同じような構造で。
 
-   * スコア
+   * Diff判定
       * 評価関数の作成
          * 座標と角度の取り出し
             * !CGAffineTransformから取り出す方法
@@ -79,4 +80,25 @@ From: Evernote
 
          * ：：ゲーム的点数化は後回し。
       * 表示ラベルの作成
+
 !!Commit:「Add:Target&Score」!!
+
+
+   * 正解判定
+      * 判定を現実的に
+         * 角度と座標は別々に？
+         * ：：流れを書き換え
+      * 閾値の設定
+         * angle:<0.05 t:<2
+
+
+!!Commit: 「Add: checkAnswer()」
+
+
+   * 再生成
+      * とりあえずボタン押したら再生成
+      * ：：FIXME:正解したら
+
+   * 時間制限(or 時間をスコアに！！)
+      * どうする？
+!!Commit: 「」!!

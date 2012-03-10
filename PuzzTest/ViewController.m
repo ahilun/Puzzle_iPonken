@@ -16,6 +16,7 @@
 @synthesize targetHolder = _targetHolder;
 @synthesize rotationScore = _rotationScore;
 @synthesize translationScore = _translationScore;
+@synthesize answerLabel = _answerLabel;
 
 
 - (void)didReceiveMemoryWarning
@@ -32,6 +33,7 @@
 	// Do any additional setup after loading the view, typically from a nib.
     
     
+    //ここから関数化？
     //PlayerとTargetを(未:ランダムに)配置。
     _playerImage.transform = CGAffineTransformMakeRotation(0.0);
     _playerHolder.transform = CGAffineTransformMakeTranslation(150.0, 250.0);
@@ -107,7 +109,7 @@
     _playerImage.transform = CGAffineTransformRotate(lastPlayerTransform, rgr.rotation);
     if ([rgr state] == UIGestureRecognizerStateEnded){
         lastPlayerTransform = _playerImage.transform;
-        [self checkRotation];
+        [self checkAnswer];
     }
     
 }
@@ -120,7 +122,7 @@
     _playerHolder.transform = CGAffineTransformTranslate(lastPlayerHolderTransform, point.x, point.y);
     if ([pgr state] == UIGestureRecognizerStateEnded){
         lastPlayerHolderTransform = _playerHolder.transform;
-        [self checkTranslation];
+        [self checkAnswer];
     }
     
 }
@@ -130,20 +132,66 @@
 }
 
 
+
+
+
+//FIXME: checkXXXXは消す。流れの変更。
+/*
 -(void)checkRotation{
     CGFloat angle = atan2(lastPlayerTransform.b, lastPlayerTransform.a);
     CGFloat diffAngle = fabs(atan2(lastTargetTransform.b, lastTargetTransform.a) - angle);
     
     _rotationScore.text = [NSString stringWithFormat:@"Rotation: %f [%f]", diffAngle, angle];
+    [self checkAnswer];
 }
-
 -(void)checkTranslation{
     CGFloat x = lastPlayerHolderTransform.tx;
     CGFloat y = lastPlayerHolderTransform.ty;
-    CGFloat diffx = lastTargetHolderTransform.tx - x;
-    CGFloat diffy = lastTargetHolderTransform.ty - y;
+    CGFloat diffx = fabs(lastTargetHolderTransform.tx - x);
+    CGFloat diffy = fabs(lastTargetHolderTransform.ty - y);
     
     _translationScore.text = [NSString stringWithFormat:@"Translation: %f,%f [%f, %f]", diffx, diffy, x, y];
+    [self checkAnswer];
+}
+*/
+
+
+
+
+-(void)displayRotation:(CGFloat)diffAngle
+                 angle:(CGFloat)angle
+{
+    _rotationScore.text = [NSString stringWithFormat:@"Rotation: %f [%f]", diffAngle, angle];
+}
+-(void)displayTranslation:(CGFloat)diffX
+                    diffY:(CGFloat)diffY
+                        x:(CGFloat)x
+                        y:(CGFloat)y
+{
+    _translationScore.text = [NSString stringWithFormat:@"Translation: %f,%f [%f, %f]", diffX, diffY, x, y];
+}
+
+-(void)checkAnswer{
+    CGFloat thresholdAngle = 0.05;
+    CGFloat thresholdTranslation = 2.0;
+    
+    CGFloat angle = atan2(lastPlayerTransform.b, lastPlayerTransform.a);
+    CGFloat diffAngle = fabs(atan2(lastTargetTransform.b, lastTargetTransform.a) - angle);
+    CGFloat x = lastPlayerHolderTransform.tx;
+    CGFloat y = lastPlayerHolderTransform.ty;
+    CGFloat diffX = fabs(lastTargetHolderTransform.tx - x);
+    CGFloat diffY = fabs(lastTargetHolderTransform.ty - y);
+    
+    NSLog(@"checkAnswer");
+    //angle:<0.05 t:<2
+    if (diffAngle <= thresholdAngle && diffX <= thresholdTranslation && diffY <= thresholdTranslation){
+        _answerLabel.text = @"○";
+    } else {
+        _answerLabel.text = @"×";
+    }
+    
+    [self displayRotation:diffAngle angle:angle];
+    [self displayTranslation:diffX diffY:diffY x:x y:y];
 }
 
 @end
