@@ -2,7 +2,7 @@
 //  main.m
 //  PuzzTest
 //
-//  Created by Ren Hirasawa on 12/02/28.
+//  Created by Ren H on 12/02/28.
 //  Copyright (c) 2012年 __MyCompanyName__. All rights reserved.
 //
 
