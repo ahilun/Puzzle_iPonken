@@ -22,6 +22,7 @@
     IBOutlet UILabel *rotationScore;
     IBOutlet UILabel *translationScore;
     IBOutlet UILabel *answerLabel;
+    NSDate *startTime;
 }
 
 @property (retain, nonatomic) UIImageView *playerImage;
@@ -31,6 +32,7 @@
 @property (retain, nonatomic) UILabel *rotationScore;
 @property (retain, nonatomic) UILabel *translationScore;
 @property (retain, nonatomic) UILabel *answerLabel;
+//@property (retain, nonatomic) NSDate *startTime;
 
 //@property (retain, nonatomic) CGAffineTransform lastTransform;
 

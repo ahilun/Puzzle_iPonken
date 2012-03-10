@@ -17,6 +17,7 @@
 @synthesize rotationScore = _rotationScore;
 @synthesize translationScore = _translationScore;
 @synthesize answerLabel = _answerLabel;
+//@synthesize startTime = _startTime;
 
 
 - (void)didReceiveMemoryWarning
@@ -189,8 +190,20 @@
     //angle:<0.05 t:<2
     if (diffAngle <= thresholdAngle && diffX <= thresholdTranslation && diffY <= thresholdTranslation){
         //_answerLabel.text = @"○";
-        [[[UIAlertView alloc] initWithTitle:@"Result" message:@"正解です！\nScore:未実装" delegate:self cancelButtonTitle:@"もう一度挑戦" otherButtonTitles:nil, nil] show];
-        [self reGenerateProblem];
+        
+        //スコア計算、メッセージ作成
+        NSTimeInterval score = [startTime timeIntervalSinceNow];
+        NSString *message = [NSString stringWithFormat:@"正解です！\nScore:%lf\nHiScore:未実装", -score];
+        
+        //アラート
+        [[[UIAlertView alloc] initWithTitle:@"Result"
+                                    message:message
+                                   delegate:self
+                          cancelButtonTitle:@"もう一度挑戦"
+                          otherButtonTitles:nil, nil] show];
+        
+        //リスタート -> デリゲート先で
+        //[self reGenerateProblem];
         
     } else {
         //_answerLabel.text = @"×";
@@ -224,6 +237,8 @@
     lastPlayerHolderTransform = _playerHolder.transform;
     lastTargetTransform = _targetImage.transform;
     lastTargetHolderTransform = _targetHolder.transform;
+    
+    startTime = [[NSDate date] retain];
 }
 
 -(float)getRandInt:(float)min max:(float)max {
@@ -234,6 +249,11 @@
 		randInitFlag = 1;
 	}
 	return min + (float)(rand()*(max-min+1.0)/(1.0+RAND_MAX));
+}
+
+-(void)alertView:(UIAlertView*)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    [self reGenerateProblem];
 }
 
 @end
