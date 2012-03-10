@@ -10,9 +10,12 @@
 
 @implementation ViewController
 
-//@synthesize uirotation = _uirotation;
 @synthesize playerImage = _playerImage;
 @synthesize playerHolder = _playerHolder;
+@synthesize targetImage = _targetImage;
+@synthesize targetHolder = _targetHolder;
+@synthesize rotationScore = _rotationScore;
+@synthesize translationScore = _translationScore;
 
 
 - (void)didReceiveMemoryWarning
@@ -28,9 +31,18 @@
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
     
-    //初期の位置,回転を保持。
+    
+    //PlayerとTargetを(未:ランダムに)配置。
+    _playerImage.transform = CGAffineTransformMakeRotation(0.0);
+    _playerHolder.transform = CGAffineTransformMakeTranslation(150.0, 250.0);
+    _targetImage.transform = CGAffineTransformMakeRotation(0.5);
+    _targetHolder.transform = CGAffineTransformMakeTranslation(30.0, 30.0);
+    
+    //変更後の初期位置,回転を保持。
     lastPlayerTransform = _playerImage.transform;
-    lastHolderTransform = _playerHolder.transform;
+    lastPlayerHolderTransform = _playerHolder.transform;
+    lastTargetTransform = _targetImage.transform;
+    lastTargetHolderTransform = _targetHolder.transform;
     
     
     //ジェスチャーの登録
@@ -95,6 +107,7 @@
     _playerImage.transform = CGAffineTransformRotate(lastPlayerTransform, rgr.rotation);
     if ([rgr state] == UIGestureRecognizerStateEnded){
         lastPlayerTransform = _playerImage.transform;
+        [self checkRotation];
     }
     
 }
@@ -104,21 +117,33 @@
     CGPoint point = [pgr translationInView:self.view];
     NSLog(@"Pan!!!%@", NSStringFromCGPoint(point));
     
-    
-    
-    //CGAffineTransform *transform = CGAffineTransformConcat(CGAffineTransformMakeTranslation(point.x, point.y), CGAffineTransformMakeRotation(_playerImage.transform));
-    //!CGAffineTransform transform = CGAffineTransformTranslate(CGAffineTransformMakeTranslation(_playerImage.transform.tx, _playerImage.transform.ty), point.x, point.y);
-    //![_playerImage setTransform:transform];
-    
-    //_playerImage.frame = CGRectMake(_playerImage.frame.origin.x + point.x, _playerImage.frame.origin.y + point.y, _playerImage.frame.size.width, _playerImage.frame.size.height);
-    
-    _playerHolder.transform = CGAffineTransformTranslate(lastHolderTransform, point.x, point.y);
+    _playerHolder.transform = CGAffineTransformTranslate(lastPlayerHolderTransform, point.x, point.y);
     if ([pgr state] == UIGestureRecognizerStateEnded){
-        lastHolderTransform = _playerHolder.transform;
+        lastPlayerHolderTransform = _playerHolder.transform;
+        [self checkTranslation];
     }
+    
 }
 
 -(void)didPinch:(id)sender{
     NSLog(@"Pinch!!");
 }
+
+
+-(void)checkRotation{
+    CGFloat angle = atan2(lastPlayerTransform.b, lastPlayerTransform.a);
+    CGFloat diffAngle = fabs(atan2(lastTargetTransform.b, lastTargetTransform.a) - angle);
+    
+    _rotationScore.text = [NSString stringWithFormat:@"Rotation: %f [%f]", diffAngle, angle];
+}
+
+-(void)checkTranslation{
+    CGFloat x = lastPlayerHolderTransform.tx;
+    CGFloat y = lastPlayerHolderTransform.ty;
+    CGFloat diffx = lastTargetHolderTransform.tx - x;
+    CGFloat diffy = lastTargetHolderTransform.ty - y;
+    
+    _translationScore.text = [NSString stringWithFormat:@"Translation: %f,%f [%f, %f]", diffx, diffy, x, y];
+}
+
 @end

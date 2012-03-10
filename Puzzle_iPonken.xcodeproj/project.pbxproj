@@ -21,6 +21,7 @@
 		A58B5D5914FC1CAB00ADE083 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = A58B5D5714FC1CAB00ADE083 /* InfoPlist.strings */; };
 		A58B5D5C14FC1CAB00ADE083 /* PuzzTestTests.m in Sources */ = {isa = PBXBuildFile; fileRef = A58B5D5B14FC1CAB00ADE083 /* PuzzTestTests.m */; };
 		A58B5D6614FC217A00ADE083 /* ren_hx.png in Resources */ = {isa = PBXBuildFile; fileRef = A58B5D6514FC217A00ADE083 /* ren_hx.png */; };
+		A5C36DDA150B3CAD004ABA95 /* ren_hx-mono.png in Resources */ = {isa = PBXBuildFile; fileRef = A5C36DD9150B3CAD004ABA95 /* ren_hx-mono.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -54,6 +55,7 @@
 		A58B5D5A14FC1CAB00ADE083 /* PuzzTestTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PuzzTestTests.h; sourceTree = "<group>"; };
 		A58B5D5B14FC1CAB00ADE083 /* PuzzTestTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PuzzTestTests.m; sourceTree = "<group>"; };
 		A58B5D6514FC217A00ADE083 /* ren_hx.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ren_hx.png; sourceTree = "<group>"; };
+		A5C36DD9150B3CAD004ABA95 /* ren_hx-mono.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ren_hx-mono.png"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -88,6 +90,7 @@
 				A58B5D2F14FC1CAA00ADE083 /* Frameworks */,
 				A58B5D2D14FC1CAA00ADE083 /* Products */,
 				A58B5D6514FC217A00ADE083 /* ren_hx.png */,
+				A5C36DD9150B3CAD004ABA95 /* ren_hx-mono.png */,
 			);
 			sourceTree = "<group>";
 		};
@@ -229,6 +232,7 @@
 				A58B5D3B14FC1CAA00ADE083 /* InfoPlist.strings in Resources */,
 				A58B5D4714FC1CAA00ADE083 /* ViewController.xib in Resources */,
 				A58B5D6614FC217A00ADE083 /* ren_hx.png in Resources */,
+				A5C36DDA150B3CAD004ABA95 /* ren_hx-mono.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
