@@ -38,6 +38,7 @@ From: Evernote
    * ジェスチャーの取得
       * UIGesture
       * ：：IBわかりづらい(*´･ω･)(･ω･｀*)ﾈｰ
+      * *1
 
    * 継続した移動
       * UIGestureRecognizerStateを使えばおｋ
@@ -50,6 +51,7 @@ From: Evernote
          * 回転と移動の分離。
             * 回転保持UIImageと座標保持UIView
             * ？：親Viewの中の絶対値で指定する方法ってあるの？
+      * *2
 
    * 画面外に出ない処理
       * 後回し    
@@ -69,6 +71,7 @@ From: Evernote
       * 評価関数の作成
          * 座標と角度の取り出し
             * !CGAffineTransformから取り出す方法
+               * *3
             * !ソース&twitter(3/10-15:47)参照
             * transformから取り出すと、初期の場所からの移動分の値しか取り出せない(比較できない)？
                * 解決策：1で。
@@ -98,6 +101,7 @@ From: Evernote
    * 再生成
       * 正解したらアラートを出して、問題をランダムに再生成。
       * 指定した範囲の乱数を返すメソッド(コピペ
+         * *4
 
 !!Commit: 「Add: reGenerateProblem」
 
@@ -107,6 +111,17 @@ From: Evernote
 
 
    * 時間をスコアに。
-      * どうする？
-      * ハイスコアの記録とか？
-!!Commit: 「」!!
+      * 開始時刻を取っておいて、NSTimeIntervalで経過秒数を
+         * ->ソース or Evernote参照
+         * ハマり。
+         * *5
+
+!!Commit: 「Add:スコア算出」!!
+
+   * ハイスコアの記録
+      * NSUserDefaultsで。
+      * *6
+   * ハイスコアの削除
+      * ボタンで。
+
+!!Commit: 「Add:ハイスコアの保存と削除、表示」!!

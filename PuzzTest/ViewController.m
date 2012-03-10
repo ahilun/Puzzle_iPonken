@@ -191,12 +191,28 @@
     if (diffAngle <= thresholdAngle && diffX <= thresholdTranslation && diffY <= thresholdTranslation){
         //_answerLabel.text = @"○";
         
-        //スコア計算、メッセージ作成
+        //スコア計算
         NSTimeInterval score = [startTime timeIntervalSinceNow];
-        NSString *message = [NSString stringWithFormat:@"正解です！\nScore:%lf\nHiScore:未実装", -score];
+        
+        //ハイスコア
+        NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+        if ((double)[userDefaults doubleForKey:@"hiscore"] == 0) {
+            NSLog(@"NotFound:HiScore.");
+            [userDefaults setDouble:(double)-score forKey:@"hiscore"];
+            
+        } else if ((double)[userDefaults doubleForKey:@"hiscore"] > (double)-score) {
+            NSLog(@"NewScore!");
+            [userDefaults setDouble:(double)-score forKey:@"hiscore"];
+            
+        }
+        double HiScore = [userDefaults doubleForKey:@"hiscore"];
+        
+        
+        //メッセージ作成
+        NSString *message = [NSString stringWithFormat:@"Score:%lf秒\nHiScore:%lf秒", -score, HiScore];
         
         //アラート
-        [[[UIAlertView alloc] initWithTitle:@"Result"
+        [[[UIAlertView alloc] initWithTitle:@"Clear!"
                                     message:message
                                    delegate:self
                           cancelButtonTitle:@"もう一度挑戦"
@@ -242,7 +258,7 @@
 }
 
 -(float)getRandInt:(float)min max:(float)max {
-    //From: http://d.hatena.ne.jp/craneto/20100721/1279677592
+    //参考: http://d.hatena.ne.jp/craneto/20100721/1279677592
 	static int randInitFlag;
 	if (randInitFlag == 0) {
 		srand(time(NULL));
@@ -254,6 +270,16 @@
 -(void)alertView:(UIAlertView*)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
 {
     [self reGenerateProblem];
+}
+
+-(void)clearHiScore{
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    [userDefaults setDouble:(double)1000.0 forKey:@"hiscore"];
+    [[[UIAlertView alloc] initWithTitle:nil
+                                message:@"ハイスコアを削除しました。"
+                               delegate:nil
+                      cancelButtonTitle:@"OK"
+                      otherButtonTitles:nil, nil] show];
 }
 
 @end

@@ -34,11 +34,6 @@
 @property (retain, nonatomic) UILabel *answerLabel;
 //@property (retain, nonatomic) NSDate *startTime;
 
-//@property (retain, nonatomic) CGAffineTransform lastTransform;
-
-//-(IBAction)didRotate:(id)sender;
-//-(IBAction)didSwipe:(id)sender;
-
 //-(void)checkRotation;       //FIXME:消す
 //-(void)checkTranslation;    //FIXME:消す
 
@@ -51,4 +46,6 @@
 -(void)checkAnswer;
 -(void)reGenerateProblem;
 -(float)getRandInt:(float)min max:(float)max;
+
+-(IBAction)clearHiScore;
 @end
